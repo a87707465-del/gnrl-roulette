@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GNRL 짝꿍 컬러 룰렛 | 에센셜 가디건 11COL</title>
+<meta name="description" content="에센셜 가디건 11가지 컬러 중 나의 컬러를 뽑고, 친구와 짝꿍 케미를 확인해보세요.">
+<!-- 카카오톡·인스타 링크 미리보기용 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="💌 GNRL 짝꿍 컬러 룰렛">
+<meta property="og:description" content="친구가 짝꿍 컬러를 기다리고 있어요! 에센셜 가디건 11COL 중 당신의 컬러는?">
+<!-- 배포 후 대표 이미지(1200x630)를 저장소에 올리고 절대주소로 바꿔 주석을 해제하세요 -->
+<!-- <meta property="og:image" content="https://YOUR-PROJECT.vercel.app/og.png"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#161616;--paper:#f6f3ee;--card:#fff;--line:#e3ded5;--muted:#7a736b;--accent:#263a5e}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font:16px/1.55 'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:var(--paper);color:var(--ink)}
+.wrap{max-width:1040px;margin:auto;padding:22px 18px 56px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.brand{font-weight:900;letter-spacing:4px;font-size:15px}
+.pill{border:1.5px solid var(--ink);border-radius:30px;padding:4px 12px;font-size:12px;font-weight:700}
+.hero{margin:22px 0 6px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--muted)}
+h1{font-size:clamp(28px,5vw,46px);letter-spacing:-1.5px;line-height:1.15;margin:6px 0 8px}
+.lead{color:var(--muted);margin:0}
+.invite{margin-top:18px;background:var(--ink);color:#fff;border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:14px}
+.invite .chip{width:44px;height:44px;flex:none}
+.invite b{color:#fff}
+.layout{display:grid;grid-template-columns:minmax(300px,1.05fr) minmax(290px,.95fr);gap:22px;margin-top:22px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px}
+h2{font-size:20px;margin:0 0 12px;letter-spacing:-.5px}
+.wheelBox{position:relative;max-width:430px;margin:8px auto 0;aspect-ratio:1}
+.wheel{position:relative;width:100%;height:100%;border-radius:50%;border:8px solid #fff;box-shadow:0 0 0 2px var(--ink),0 14px 34px #0002;transition:transform 4.2s cubic-bezier(.12,.7,.1,1)}
+.seg{position:absolute;left:50%;top:0;width:60px;margin-left:-30px;height:50%;transform-origin:50% 100%;display:flex;justify-content:center;padding-top:7%;pointer-events:none}
+.seg b{writing-mode:vertical-rl;font-size:clamp(9px,2.5vw,12px);font-weight:900;letter-spacing:1px}
+.hub{position:absolute;left:50%;top:50%;width:22%;height:22%;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--ink);display:grid;place-items:center;font-weight:900;letter-spacing:2px;font-size:clamp(11px,2.6vw,15px);z-index:2}
+.pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:3;width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:34px solid var(--ink);filter:drop-shadow(0 2px 0 #fff)}
+.status{text-align:center;min-height:24px;margin-top:14px;font-weight:700;color:var(--muted)}
+label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+input[type=text]{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff}
+input[type=text]:focus{border-color:var(--ink);outline:none}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+button{border:0;border-radius:12px;cursor:pointer;padding:13px 18px;font:inherit;font-weight:900;background:var(--ink);color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+button.soft{background:#efebe4;color:var(--ink)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #e6b422;outline-offset:2px}
+.full{width:100%}
+.btns{display:grid;gap:8px;margin-top:16px}
+.chip{display:inline-block;width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px #0002;vertical-align:-3px}
+.big{display:flex;align-items:center;gap:16px;margin:4px 0 12px}
+.big .chip{width:76px;height:76px;flex:none;box-shadow:0 0 0 3px #fff,0 0 0 4.5px var(--ink)}
+.big .name{font-size:30px;font-weight:900;letter-spacing:1px;line-height:1.1}
+.big .ko{color:var(--muted);font-weight:700}
+.mood{background:#f6f3ee;border-radius:14px;padding:12px 14px;font-weight:700}
+.coupon{margin-top:12px;border:1.5px dashed var(--ink);border-radius:14px;padding:12px 14px;font-size:14px}
+.coupon b{font-size:16px}
+.duo{display:flex;justify-content:center;align-items:center;margin:6px 0 12px}
+.duo .chip{width:96px;height:96px;box-shadow:0 0 0 4px #fff,0 0 0 5.5px var(--ink)}
+.duo .chip+.chip{margin-left:-22px}
+.duoNames{text-align:center;font-weight:900;font-size:18px}
+.duoNames small{display:block;color:var(--muted);font-weight:700;font-size:13px}
+.score{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;font-weight:900}
+.score strong{font-size:34px}
+.meter{height:12px;border-radius:12px;background:#efebe4;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--ink);transition:width 1.2s ease-out}
+.duoTitle{font-size:22px;font-weight:900;margin:14px 0 6px}
+.tip{color:#4b463f;margin:0}
+.linkBox{margin-top:10px}
+.linkBox input{font-size:13px}
+.odds{margin-top:22px}
+.row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:7px 0;font-size:14px}
+.row span{display:flex;align-items:center;gap:8px}
+.note{margin-top:18px;background:#fff6d6;border-radius:14px;padding:12px 14px;font-size:13px;color:#6b5a1e}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:30px;font-weight:700;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:10;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+[hidden]{display:none!important}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.panel{padding:18px}.wrap{padding:16px 14px 44px}}
+@media(prefers-reduced-motion:reduce){.wheel{transition-duration:.6s}.meter i{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <span class="brand">GENERAL IDEA</span>
+    <span class="pill">교육용 · 실제 쿠폰 미발급</span>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">GNRL ESSENTIAL CARDIGAN · 11 COLORS</div>
+    <h1>💌 짝꿍 컬러 룰렛</h1>
+    <p class="lead">내 컬러를 뽑고 → 친구에게 링크를 보내고 → 친구가 돌리면 둘의 케미가 공개돼요.</p>
+  </section>
+
+  <div class="invite" id="invite" hidden>
+    <span class="chip" id="inviteChip"></span>
+    <div id="inviteText"></div>
+  </div>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="wheelBox">
+        <div class="pointer" aria-hidden="true"></div>
+        <div class="wheel" id="wheel" role="img" aria-label="에센셜 가디건 11컬러 룰렛"></div>
+        <div class="hub" aria-hidden="true">GNRL</div>
+      </div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <!-- 1단계: 닉네임 + 돌리기 -->
+      <div id="stepStart">
+        <h2 id="startTitle">🎡 나의 오늘 컬러 뽑기</h2>
+        <label for="nick">닉네임</label>
+        <input type="text" id="nick" maxlength="10" placeholder="예) 지수" autocomplete="off">
+        <p class="hint">결과 카드와 친구에게 보내는 링크에 표시돼요. (최대 10자)</p>
+        <div class="btns"><button id="spin" class="full">🎡 룰렛 돌리기</button></div>
+      </div>
+
+      <!-- 2단계-A: 내 결과 (초대받지 않은 경우) -->
+      <div id="stepMine" hidden>
+        <h2 id="mineTitle"></h2>
+        <div class="big"><span class="chip" id="mineChip"></span><div><div class="name" id="mineName"></div><div class="ko" id="mineKo"></div></div></div>
+        <div class="mood" id="mineMood"></div>
+        <div class="coupon"><b>🎟 내 컬러 쿠폰 5%</b> (모의)<br>친구가 짝꿍 룰렛을 돌리면 <b>둘 다 추가 10%</b>!</div>
+        <div class="btns">
+          <button id="shareMine" class="full">💌 친구에게 짝꿍 룰렛 보내기</button>
+          <div class="linkBox" id="linkBox" hidden><input type="text" id="linkInput" readonly aria-label="공유 링크"></div>
+          <button id="saveMine" class="ghost full">🖼 결과 카드 저장</button>
+          <button class="soft full" data-action="again">다시 돌리기</button>
+        </div>
+      </div>
+
+      <!-- 2단계-B: 짝꿍 매칭 결과 (초대 링크로 들어온 경우) -->
+      <div id="stepMatch" hidden>
+        <h2>🤝 짝꿍 매칭 결과</h2>
+        <div class="duo"><span class="chip" id="duoA"></span><span class="chip" id="duoB"></span></div>
+        <div class="duoNames" id="duoNames"></div>
+        <div class="score"><span>케미 지수</span><strong id="scoreNum">0%</strong></div>
+        <div class="meter"><i id="meterBar"></i></div>
+        <div class="duoTitle" id="duoTitle"></div>
+        <p class="tip" id="duoTip"></p>
+        <div class="coupon"><b>🎟 짝꿍 쿠폰 · 두 컬러 함께 담으면 추가 10%</b> (모의)</div>
+        <div class="btns">
+          <button id="saveMatch" class="full">🖼 케미 카드 저장</button>
+          <button id="shareOwn" class="ghost full">💌 나도 내 짝꿍 찾기 (내 링크 보내기)</button>
+          <div class="linkBox" id="linkBox2" hidden><input type="text" id="linkInput2" readonly aria-label="공유 링크"></div>
+          <button class="soft full" data-action="again">다시 돌리기</button>
+        </div>
+      </div>
+
+      <div class="odds">
+        <h2>📊 컬러별 당첨 확률</h2>
+        <div id="odds"></div>
+      </div>
+      <div class="note">🎓 수업용 모의 이벤트예요. 실제 쿠폰·개인정보 수집·결제 기능은 없어요. 실제로 운영할 때는 경품 고시, 확률 표시, 이용 조건, 개인정보 처리 방침을 꼭 검토하세요.</div>
+    </section>
+  </div>
+</main>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===== 1. 데이터: 컬러 (weight 값으로 확률 조정 · 재고/프로모션 컬러에 가중치를 주면 됨) ===== */
+const COLORS = [
+  {id:'WHITE',    ko:'화이트', hex:'#f4f1ea', text:'#222', group:'neutral', weight:1, mood:'깨끗하게 새로 시작하고 싶은 날'},
+  {id:'PINK',     ko:'핑크',   hex:'#f1c3cd', text:'#222', group:'pastel',  weight:1, mood:'괜히 설레는 일이 생길 것 같은 날'},
+  {id:'MINT',     ko:'민트',   hex:'#bfe2d2', text:'#222', group:'pastel',  weight:1, mood:'머리를 시원하게 비우고 싶은 날'},
+  {id:'BUTTER',   ko:'버터',   hex:'#f3e09c', text:'#222', group:'pastel',  weight:1, mood:'말랑하고 다정해지고 싶은 날'},
+  {id:'BLUE',     ko:'블루',   hex:'#a8c4e6', text:'#222', group:'pastel',  weight:1, mood:'가볍게 기분 전환이 필요한 날'},
+  {id:'BLACK',    ko:'블랙',   hex:'#1d1d1d', text:'#fff', group:'neutral', weight:1, mood:'군더더기 없이 단단하고 싶은 날'},
+  {id:'GREY',     ko:'그레이', hex:'#bdbcb8', text:'#222', group:'neutral', weight:1, mood:'조용히 내 페이스를 지키는 날'},
+  {id:'CHARCOAL', ko:'차콜',   hex:'#46474b', text:'#fff', group:'neutral', weight:1, mood:'차분하게 집중하고 싶은 날'},
+  {id:'RED',      ko:'레드',   hex:'#b3302d', text:'#fff', group:'point',   weight:1, mood:'오늘의 주인공이 되고 싶은 날'},
+  {id:'KHAKI',    ko:'카키',   hex:'#878256', text:'#fff', group:'neutral', weight:1, mood:'어디로든 훌쩍 떠나고 싶은 날'},
+  {id:'NAVY',     ko:'네이비', hex:'#263a5e', text:'#fff', group:'neutral', weight:1, mood:'단정하지만 지루하진 않은 날'}
+];
+
+/* ===== 2. 짝꿍 케미 규칙 ===== */
+const SPECIAL = { // 특별 조합 (알파벳순 키)
+  'NAVY+WHITE':   ['클래식 프레피 듀오','네이비는 셔츠 깃을 살짝 꺼내 입고, 화이트는 데님과 매치하면 교복 같지 않은 프레피 룩이 완성돼요.'],
+  'BLACK+WHITE':  ['흑백 영화 듀오','같은 실루엣, 반대 컬러. 하의를 둘 다 블랙 슬랙스로 맞추면 사진이 화보처럼 나와요.'],
+  'MINT+PINK':    ['멜론소다 듀오','파스텔끼리는 하의를 아이보리나 연청으로 밝게 맞추면 사진 톤이 더 화사해져요.'],
+  'BLUE+BUTTER':  ['맑은 날 하늘 듀오','하늘색과 버터는 나란히 서면 서로를 더 선명하게 만들어줘요. 흰 티 이너를 추천해요.'],
+  'CHARCOAL+GREY':['톤온톤 무드 듀오','같은 회색 계열의 농도 차이로 맞춘 고수의 시밀러룩. 한 명은 단추를 끝까지 채워 니트처럼 입어보세요.'],
+  'KHAKI+NAVY':   ['캠퍼스 클래식 듀오','카키와 네이비는 아메카지의 정석 조합. 치노 팬츠에 로퍼면 바로 완성돼요.'],
+  'BLACK+RED':    ['시티 나이트 듀오','레드가 주인공, 블랙이 무대. 블랙 쪽은 액세서리를 실버로 맞추면 더 시크해져요.'],
+  'NAVY+RED':     ['트래디셔널 듀오','네이비와 레드는 클래식 트래드의 기본. 둘 다 화이트 이너로 통일하면 깔끔해요.']
+};
+const BY_GROUP = {
+  same:             ['완벽한 쌍둥이 듀오','같은 컬러는 하의로 차이를 주세요. 한 명은 데님, 한 명은 슬랙스로 입으면 따라 한 느낌 없이 맞춘 티가 나요.'],
+  'neutral+neutral':['모노톤 시크 듀오','뉴트럴끼리는 실패가 없어요. 소재(데님·울·레더)로 변화를 주면 훨씬 세련돼 보여요.'],
+  'pastel+pastel':  ['파스텔 피크닉 듀오','파스텔 두 가지는 이너와 하의를 화이트로 통일하면 사진이 가장 예쁘게 나와요.'],
+  'neutral+pastel': ['밸런스 듀오','뉴트럴이 파스텔을 받쳐주는 조합. 파스텔 쪽 이너를 상대 컬러로 맞추면 한 팀처럼 보여요.'],
+  point:            ['시선 강탈 포인트 듀오','레드가 포인트를 맡고 짝꿍은 톤을 낮춰주세요. 둘 다 화이트 이너면 균형이 딱 맞아요.']
+};
+function chemistry(a, b){
+  const A = COLORS[a], B = COLORS[b];
+  const h = (Math.min(a,b)*7 + Math.max(a,b)*13) % 6; // 두 사람이 같은 점수를 보도록 고정값
+  if (a === b) return {score:100, title:BY_GROUP.same[0], tip:BY_GROUP.same[1]};
+  const key = [A.id, B.id].sort().join('+');
+  if (SPECIAL[key]) return {score:94 + h, title:SPECIAL[key][0], tip:SPECIAL[key][1]};
+  const g = (A.group==='point' || B.group==='point') ? 'point' : [A.group, B.group].sort().join('+');
+  const base = {'neutral+neutral':86, 'pastel+pastel':88, 'neutral+pastel':84, point:85}[g];
+  return {score:base + h, title:BY_GROUP[g][0], tip:BY_GROUP[g][1]};
+}
+
+/* ===== 3. 초대 링크 읽기 (?n=닉네임&c=컬러ID) ===== */
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const hostIdx = COLORS.findIndex(c => c.id === (params.get('c') || '').toUpperCase());
+const host = hostIdx >= 0 ? {name: (params.get('n') || '').trim().slice(0,10) || '친구', c: hostIdx} : null;
+const state = {name:'', mine:null, chem:null};
+
+/* ===== 4. 룰렛 그리기 ===== */
+const wheel = $('wheel'), SEG = 360 / COLORS.length;
+wheel.style.background = 'conic-gradient(' + COLORS.map((c,i) => `${c.hex} ${i*SEG}deg ${(i+1)*SEG}deg`).join(',') + ')';
+COLORS.forEach((c,i) => {
+  const s = document.createElement('div');
+  s.className = 'seg';
+  s.style.transform = `rotate(${i*SEG + SEG/2}deg)`;
+  s.innerHTML = `<b style="color:${c.text}">${c.id}</b>`;
+  wheel.appendChild(s);
+});
+const totalW = COLORS.reduce((s,c) => s + c.weight, 0);
+$('odds').innerHTML = COLORS.map(c =>
+  `<div class="row"><span><i class="chip" style="background:${c.hex}"></i>${c.id} · ${c.ko}</span><strong>${(c.weight/totalW*100).toFixed(1)}%</strong></div>`
+).join('');
+
+/* ===== 5. 초대 배너 ===== */
+if (host){
+  const hc = COLORS[host.c];
+  $('invite').hidden = false;
+  $('inviteChip').style.background = hc.hex;
+  $('inviteText').innerHTML = `<b>${esc(host.name)}</b>님의 컬러는 <b>${hc.id}</b>예요.<br>당신이 돌리면 두 사람의 케미가 공개돼요!`;
+  $('startTitle').textContent = `🤝 ${host.name}님의 짝꿍 컬러 뽑기`;
+  $('spin').textContent = '🎡 짝꿍 룰렛 돌리기';
+}
+
+/* ===== 6. 돌리기 ===== */
+let current = 0, spinning = false;
+function pick(){
+  let n = Math.random() * totalW;
+  for (let i = 0; i < COLORS.length; i++){ n -= COLORS[i].weight; if (n < 0) return i; }
+  return COLORS.length - 1;
+}
+function spinTo(i){
+  return new Promise(res => {
+    const aim = 360 - (i*SEG + SEG/2);
+    const delta = (aim - (current % 360) + 360) % 360;
+    current += 360*5 + delta;
+    wheel.style.transform = `rotate(${current}deg)`;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(res, reduce ? 700 : 4300);
+  });
+}
+$('spin').addEventListener('click', async () => {
+  if (spinning) return;
+  spinning = true; $('spin').disabled = true;
+  state.name = $('nick').value.trim().slice(0,10) || '익명';
+  $('status').textContent = '✨ 컬러를 고르는 중...';
+  const i = pick();
+  await spinTo(i);
+  state.mine = i;
+  spinning = false; $('spin').disabled = false;
+  $('status').textContent = `🎉 ${COLORS[i].id} 당첨!`;
+  host ? showMatch() : showMine();
+});
+
+function showMine(){
+  const c = COLORS[state.mine];
+  $('stepStart').hidden = true; $('stepMine').hidden = false;
+  $('mineTitle').textContent = `${state.name}님의 오늘 컬러`;
+  $('mineChip').style.background = c.hex;
+  $('mineName').textContent = c.id;
+  $('mineKo').textContent = c.ko;
+  $('mineMood').textContent = '“' + c.mood + '”';
+  $('linkBox').hidden = true;
+}
+function showMatch(){
+  const A = COLORS[host.c], B = COLORS[state.mine];
+  state.chem = chemistry(host.c, state.mine);
+  $('stepStart').hidden = true; $('stepMatch').hidden = false;
+  $('duoA').style.background = A.hex; $('duoB').style.background = B.hex;
+  $('duoNames').innerHTML = `${esc(host.name)} × ${esc(state.name)}<small>${A.id} + ${B.id}</small>`;
+  $('duoTitle').textContent = state.chem.title;
+  $('duoTip').textContent = state.chem.tip;
+  $('linkBox2').hidden = true;
+  const bar = $('meterBar'), num = $('scoreNum'), target = state.chem.score;
+  bar.style.width = '0'; requestAnimationFrame(() => setTimeout(() => bar.style.width = target + '%', 50));
+  let v = 0; const t = setInterval(() => { v = Math.min(target, v + 3); num.textContent = v + '%'; if (v >= target) clearInterval(t); }, 30);
+}
+document.querySelectorAll('[data-action="again"]').forEach(b => b.addEventListener('click', () => {
+  $('stepMine').hidden = true; $('stepMatch').hidden = true; $('stepStart').hidden = false;
+  $('status').textContent = ''; $('nick').value = state.name === '익명' ? '' : state.name;
+}));
+
+/* ===== 7. 링크 공유 ===== */
+function myLink(){
+  const base = location.href.split('?')[0].split('#')[0];
+  return `${base}?n=${encodeURIComponent(state.name)}&c=${COLORS[state.mine].id}`;
+}
+async function shareLink(boxId, inputId){
+  const url = myLink();
+  const text = `나는 ${COLORS[state.mine].id}가 나왔어! 네가 돌리면 우리 둘 케미가 공개돼 💌`;
+  $(inputId).value = url; $(boxId).hidden = false;
+  if (navigator.share){
+    try { await navigator.share({title:'GNRL 짝꿍 컬러 룰렛', text, url}); return; }
+    catch(e){ if (e.name === 'AbortError') return; }
+  }
+  try { await navigator.clipboard.writeText(url); toast('링크를 복사했어요! 친구에게 붙여넣어 보내세요'); }
+  catch { $(inputId).select(); toast('아래 링크를 복사해서 보내주세요'); }
+}
+$('shareMine').addEventListener('click', () => shareLink('linkBox','linkInput'));
+$('shareOwn').addEventListener('click', () => shareLink('linkBox2','linkInput2'));
+
+/* ===== 8. 결과 카드 이미지 (1080x1350, 인스타 피드 비율) ===== */
+async function makeCard(kind){
+  try { await document.fonts.ready; } catch {}
+  const W = 1080, H = 1350, cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const F = '"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  x.fillStyle = '#f6f3ee'; x.fillRect(0,0,W,H);
+  x.fillStyle = '#161616'; x.fillRect(60,150,W-120,4);
+  x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+  x.font = `900 34px ${F}`; x.fillText('GENERAL IDEA', W/2, 120);
+  const circle = (cx, cy, r, c) => { x.beginPath(); x.arc(cx,cy,r,0,Math.PI*2); x.fillStyle = c.hex; x.fill(); x.lineWidth = 10; x.strokeStyle = '#fff'; x.stroke(); x.lineWidth = 3; x.strokeStyle = '#161616'; x.beginPath(); x.arc(cx,cy,r+6,0,Math.PI*2); x.stroke(); };
+  if (kind === 'mine'){
+    const c = COLORS[state.mine];
+    x.fillStyle = '#161616'; x.font = `900 66px ${F}`; x.fillText(`${state.name}의 오늘 컬러`, W/2, 260);
+    circle(W/2, 610, 250, c);
+    x.fillStyle = c.text; x.font = `900 96px ${F}`; x.fillText(c.id, W/2, 640);
+    x.fillStyle = '#161616'; x.font = `700 46px ${F}`; x.fillText(`“${c.mood}”`, W/2, 960);
+    x.fillStyle = '#7a736b'; x.font = `700 36px ${F}`; x.fillText('💌 친구가 돌리면 우리 둘의 케미가 공개돼요', W/2, 1070);
+  } else {
+    const A = COLORS[host.c], B = COLORS[state.mine], ch = state.chem;
+    x.fillStyle = '#161616'; x.font = `900 62px ${F}`; x.fillText(`${host.name} × ${state.name}`, W/2, 260);
+    circle(410, 560, 210, A); circle(670, 560, 210, B);
+    x.font = `900 44px ${F}`;
+    x.fillStyle = A.text; x.fillText(A.id, 340, 575);
+    x.fillStyle = B.text; x.fillText(B.id, 740, 575);
+    x.fillStyle = '#161616'; x.font = `900 120px ${F}`; x.fillText(`케미 ${ch.score}%`, W/2, 940);
+    x.font = `900 52px ${F}`; x.fillText(ch.title, W/2, 1030);
+    x.fillStyle = '#4b463f'; x.font = `400 34px ${F}`;
+    wrap(x, ch.tip, W/2, 1100, 860, 50);
+  }
+  x.fillStyle = '#7a736b'; x.font = `700 28px ${F}`;
+  x.fillText('GNRL ESSENTIAL CARDIGAN 11COL · 교육용 이벤트 · 실제 쿠폰 미발급', W/2, 1290);
+  return new Promise(r => cv.toBlob(r, 'image/png'));
+}
+function wrap(x, text, cx, y, maxW, lh){
+  let line = '';
+  for (const ch of text){
+    if (x.measureText(line + ch).width > maxW){ x.fillText(line, cx, y); line = ch; y += lh; }
+    else line += ch;
+  }
+  if (line) x.fillText(line, cx, y);
+}
+async function saveCard(kind){
+  const blob = await makeCard(kind);
+  const file = new File([blob], 'gnrl-color.png', {type:'image/png'});
+  const mobile = matchMedia('(pointer:coarse)').matches;
+  if (mobile && navigator.canShare && navigator.canShare({files:[file]})){
+    try { await navigator.share({files:[file], title:'GNRL 짝꿍 컬러 룰렛'}); return; }
+    catch(e){ if (e.name === 'AbortError') return; }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'gnrl-color.png';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast('결과 카드를 저장했어요');
+}
+$('saveMine').addEventListener('click', () => saveCard('mine'));
+$('saveMatch').addEventListener('click', () => saveCard('match'));
+
+/* ===== 유틸 ===== */
+function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+let tt;
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('on'), 2400); }
+</script>
+</body>
+</html>
